@@ -1,5 +1,6 @@
 %! TEX program = xelatex
-% \documentclass[draft]{beamer}
+\PassOptionsToPackage{dvipsnames,table}{xcolor}
+% \documentclass[draft,compress]{beamer}
 \documentclass[compress]{beamer}
 
 \usepackage{kotex}
@@ -43,22 +44,6 @@
     \pgfusepath{stroke}
   \end{pgfpicture}%
 }
-
-% Set footline
-% See https://tex.stackexchange.com/a/386633
-% \setbeamercolor{section in head/foot}{fg=normal text.bg, bg=structure.fg}
-% \setbeamercolor{subsection in head/foot}{fg=normal text.bg, bg=structure.fg}
-% \makeatletter
-% \setbeamertemplate{footline}{%
-%     \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
-%     \end{beamercolorbox}
-%     \begin{beamercolorbox}{section in head/foot}
-%       \insertsubsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}\vskip3pt%
-%     \end{beamercolorbox}%
-%     \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
-%     \end{beamercolorbox}
-% }
-% \makeatother
 
 %%%%%%%%%%%%%%%%%%%
 %  Font Settings  %
@@ -315,7 +300,7 @@
               \onslide<#1>
               \includegraphics[
                 frame, page=\int_eval:n { #1 }, width=\textwidth
-              ]{tutorial/hello-beamer-1.pdf}\\
+              ]{tutorial/hello-beamer-1.pdf}
             }
         \end{overprint}
         \ExplSyntaxOff
@@ -430,6 +415,233 @@
         \includegraphics[
           frame,page=3,width=\textwidth
         ]{tutorial/hello-beamer-3.pdf}
+      \end{column}
+    \end{columns}
+  \end{block}
+\end{frame}
+
+\subsection{내용 배치}
+\begin{frame}[fragile=singleslide]{다단 구성}
+  다단 구성을 할 때는 \verb/columns/ 환경을 사용할 수 있다.
+  \begin{block}{\texttt{hello-beamer-4.tex}}
+    \begin{columns}
+      \begin{column}{0.61\textwidth}
+        \begin{latexcode}
+          \begin{frame}{Third Slide}
+            \begin{columns}
+              \begin{column}{0.5\textwidth}
+                \LARGE LEFT
+              \end{column}
+              \begin{column}{0.5\textwidth}
+                \LARGE RIGHT
+              \end{column}
+            \end{columns}
+          \end{frame}
+        \end{latexcode}
+      \end{column}
+      \begin{column}{0.3\textwidth}
+        \includegraphics[
+          frame,page=4,width=\textwidth
+        ]{tutorial/hello-beamer-4.pdf}
+      \end{column}
+    \end{columns}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{표와 정렬}
+  표는 \verb/tabular/ 환경을 사용할 수 있다.
+  또한 세로 간격은 \verb/\vspace{}/ 명령으로 조절할 수 있으며, 가로 가운데
+  정렬은 \verb/center/ 환경을 쓸 수 있다.
+  \begin{block}{\texttt{hello-beamer-5.tex}}
+    \begin{columns}
+      \begin{column}{0.61\textwidth}
+        \begin{latexcode}
+          \begin{frame}{Third Slide}
+            % (생략)
+            \end{columns}
+            \vspace{2cm}
+            \begin{center}
+              \begin{tabular}{ccc}
+                cell 1 & cell 2 & cell 3\\
+                cell 4 & cell 5 & cell 6
+              \end{tabular}
+            \end{center}
+          \end{frame}
+        \end{latexcode}
+      \end{column}
+      \begin{column}{0.3\textwidth}
+        \includegraphics[
+          frame,page=4,width=\textwidth
+        ]{tutorial/hello-beamer-5.pdf}
+      \end{column}
+    \end{columns}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{표}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{latexcode}
+        \begin{tabular}{r|cc}
+          & col 1 & col 2\\
+          \hline
+          row 1 & dat 11 & dat 12\\
+          row 2 & dat 21 & dat 22\\
+        \end{tabular}
+      \end{latexcode}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{tabular}{r|cc}
+        & col 1 & col 2\\
+        \hline
+        row 1 & dat 11 & dat 12\\
+        row 2 & dat 21 & dat 22\\
+      \end{tabular}
+    \end{column}
+  \end{columns}
+  \begin{alertblock}{표 생성 도구}
+    다음 도구를 사용하면 GUI로 쉽게 \LaTeX{} 표를 만들거나, CSV, Excel 등에서
+    표를 옮겨오는 것도 가능하다:
+    \begin{itemize}
+      \item \url{https://www.tablesgenerator.com/}
+      \item \url{https://www.latex-tables.com/}
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{이미지 삽입}
+  \begin{block}{\texttt{hello-beamer-6.tex}}
+    \begin{latexcode}
+      \begin{frame}{Fourth Slide}
+        \includegraphics[width=\textwidth]{tex-lion}
+      \end{frame}
+    \end{latexcode}
+    \begin{center}
+      \includegraphics[
+        frame,page=5,width=0.5\textwidth
+      ]{tutorial/hello-beamer-6.pdf}
+    \end{center}
+  \end{block}
+\end{frame}
+
+\section{\textsc{beamer} 다루기}
+\begin{frame}[fragile=singleslide,allowframebreaks]{\texttt{block}}
+  \textsc{beamer}에는 내용을 강조하거나 문맥에 따라 묶을 수 있는 \texttt{block}
+  환경들을 제공한다:
+  \begin{center}
+    \rowcolors{1}{RoyalBlue!20}{RoyalBlue!5}
+    \begin{tabular}{rl}
+      \textbf{내용} & \textbf{환경}\\
+      일반 & \verb/block/\\
+      강조 & \verb/alertblock/\\
+      예시 & \verb/example/\\
+      정리 & \verb/theorem/\\
+      증명 & \verb/proof/\\
+      보조정리 & \verb/lemma/\\
+      따름정리 & \verb/corollary/
+    \end{tabular}
+  \end{center}
+  \framebreak
+
+  \begin{block}{\texttt{hello-beamer-7.tex}}
+    \begin{columns}
+      \begin{column}{0.6\textwidth}
+        \begin{latexcode}
+          \begin{frame}{Fifth Slide}
+            \begin{block}{Basis}
+              % (생략)
+            \end{block}
+            \begin{theorem}[Dimension Theorem]
+              % (생략)
+            \end{theorem}
+          \end{frame}
+        \end{latexcode}
+      \end{column}
+      \begin{column}{0.35\textwidth}
+        \includegraphics[
+          frame,page=6,width=\textwidth
+        ]{tutorial/hello-beamer-7.pdf}
+      \end{column}
+    \end{columns}
+  \end{block}
+  다른 테마를 적용한다면?
+\end{frame}
+
+\subsection{테마}
+\begin{frame}{테마}
+  테마는 preamble에서 \ltxverb/\usetheme{}/으로 정할 수 있다.
+  \begin{exampleblock}{기본 테마}
+    \begin{center}
+      \begin{tabular}{cccc}
+        Antibes & Bergen & Berkeley & Berlin \\
+        Boadilla & Copenhagen & Darmstadt & Dresden \\
+        Frankfurt & Goettingen & Hannover & Ilmenau \\
+        Juanlespins & Madrid & Malmoe & Marburg \\
+        Montpellier & Paloalto & Pittsburgh & Rochester \\
+        Singapore & Warsaw &&
+      \end{tabular}
+    \end{center}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{색상 테마}
+  레이아웃이 아닌 색상만을 결정하는 테마도 함께 사용할 수 있는데, 이는
+  \ltxverb/\usecolortheme{}/으로 정할 수 있다.
+  \begin{exampleblock}{기본 색상 테마}
+    \begin{center}
+      \begin{tabular}{cccc}
+        albatross & crane & beetle & dove \\
+        fly & seagull & wolverine & beaver
+      \end{tabular}
+    \end{center}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{내\tpc외부 색상 테마}
+  블럭 등 내부 색상만 결정하는 테마도 사용할 수 있다.
+  다른 색상 테마처럼 \ltxverb/\usecolortheme{}/으로 정할 수 있다.
+  \begin{exampleblock}{기본 내부 색상 테마}
+    \begin{tabular}{ccc}
+      lily & orchid & rose
+    \end{tabular}
+  \end{exampleblock}
+
+  마찬가지로 headline, footline, sidebar 등의 외부 색상을 결정하는 테마도 있다:
+  \begin{exampleblock}{기본 외부 색상 테마}
+    \begin{tabular}{ccc}
+      whale & seahorse & dolphin
+    \end{tabular}
+  \end{exampleblock}
+
+  이러한 테마 조합은 \url{https://hartwork.org/beamer-theme-matrix/}에서 확인할
+  수 있다.
+\end{frame}
+
+\begin{frame}[fragile]{테마 적용}
+  \begin{block}{\texttt{hello-beamer-8.tex}}
+    \begin{columns}
+      \begin{column}{0.5\textwidth}
+        \begin{latexcode}
+          \documentclass{beamer}
+          \usetheme{Berlin}
+          \usecolortheme{beaver}
+          \usecolortheme{rose}
+          % (생략)
+        \end{latexcode}
+      \end{column}
+      \begin{column}{0.4\textwidth}
+        \ExplSyntaxOn
+        \int_set:Nn \l_tmpa_int { \numberofpages{tutorial/hello-beamer-8.pdf} }
+        \begin{overprint}
+          \int_step_inline:nn { \l_tmpa_int }
+            {
+              \onslide<#1>
+              \includegraphics[
+                frame, page=\int_eval:n { #1 }, width=\textwidth
+              ]{tutorial/hello-beamer-8.pdf}
+            }
+        \end{overprint}
+        \ExplSyntaxOff
       \end{column}
     \end{columns}
   \end{block}
