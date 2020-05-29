@@ -1,0 +1,93 @@
+%! TEX program = xelatex
+\documentclass{beamer}
+
+\usepackage{kotex}
+\usepackage{minted}
+
+\vfuzz=30pt
+\hfuzz=5pt
+
+%%%%%%%%%%%%%%%%%%%%%
+%  Beamer Settings  %
+%%%%%%%%%%%%%%%%%%%%%
+\usetheme[numbering=fraction]{metropolis}
+\usecolortheme{rose}
+\useoutertheme[subsection=false]{miniframes}
+
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}[circle]
+
+
+%%%%%%%%%%%%%%%%%%%
+%  Font Settings  %
+%%%%%%%%%%%%%%%%%%%
+\usepackage[factor=500]{microtype}
+
+\usefonttheme{professionalfonts} % required for mathspec
+\usepackage{mathspec}
+
+\setmathsfont(Digits)[%
+  Numbers={Lining, Proportional}
+]{Fira Sans}
+\setsansfont[%
+  BoldFont={Fira Sans SemiBold},
+  Numbers={OldStyle}
+]{Fira Sans}
+\setsanshangulfont{Noto Sans CJK KR}[%
+  AutoFakeSlant=0.18,
+  FontFace={m}{up}{Font=*}
+]
+
+\newfontfamily\NotoSansMonoExtraCondensed{Noto Sans Mono ExtraCondensed}
+\RenewDocumentCommand\UrlFont{}{\NotoSansMonoExtraCondensed}
+\NewDocumentCommand\textct{m}{{\NotoSansMonoExtraCondensed#1}}
+
+%%%%%%%%%%%%%%%%%%%%%
+%  Minted Settings  %
+%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\theFancyVerbLine{\textsf{\tiny\arabic{FancyVerbLine}}}
+%
+\newminted{shell}{
+  escapeinside=||,
+  autogobble,
+  breaklines,
+  frame=single,
+  fontsize=\footnotesize}
+\newminted{vim}{
+  escapeinside=||,
+  autogobble,
+  linenos,
+  breaklines,
+  numbersep=5pt,
+  frame=single,
+  fontsize=\footnotesize}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Custom Settings  %
+%%%%%%%%%%%%%%%%%%%%%%%
+\NewDocumentCommand\tpc{}{\textperiodcentered}
+\NewDocumentCommand\tat{}{\textasciitilde}
+\NewDocumentCommand\tla{}{\textleftarrow}
+\NewDocumentCommand\tra{}{\textrightarrow}
+\NewDocumentCommand\tua{}{\textuparrow}
+\NewDocumentCommand\tda{}{\textdownarrow}
+\NewDocumentCommand\tbs{}{\textbackslash}
+\NewDocumentCommand\vpad{}{\vspace{1em}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%  Document Settings  %
+%%%%%%%%%%%%%%%%%%%%%%%
+\title{\textsc{beamer}: 내용 중심의 프레젠테이션}
+\author{이재호}
+\institute{서울대학교 전기\tpc{}정보공학부/KTUG}
+\date{2020년 5월 30일}
+
+%%%%%%%%%%%%%%
+%  Document  %
+%%%%%%%%%%%%%%
+\begin{document}
+% \RenewDocumentCommand\pause{o}{}
+
+\maketitle
+\end{document}
