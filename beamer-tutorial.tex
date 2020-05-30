@@ -7,6 +7,8 @@
 \usepackage{minted}
 \usepackage[export]{adjustbox}
 
+\usepackage{kotex-logo}
+
 \usepackage{tikz}
 \usetikzlibrary{patterns,decorations.pathmorphing}
 
@@ -181,6 +183,7 @@
 \end{frame}
 
 \begin{frame}{목차}
+  \footnotesize
   \tableofcontents
 \end{frame}
 
@@ -808,5 +811,47 @@
       ]{tutorial/hello-beamer-9.pdf}
     \end{center}
   \end{block}
+\end{frame}
+
+\section{Troubleshooting}
+\begin{frame}[fragile=singleslide]{Verbatim이 안돼요!}
+  \verb/\verb/를 사용하기 위해서는 \verb/frame/ 환경에 \verb/fragile/ 옵션을
+  넣어주어야 합니다:
+  \begin{exampleblock}{Verbatim 사용하기}
+    \begin{latexcode}
+      \begin{frame}[fragile]{Verbatim Slide}
+        This slide contains a \verb/\verb/.
+      \end{frame}
+    \end{latexcode}
+  \end{exampleblock}
+
+  비슷한 문제로, \verb/minted/를 사용하기 위해서는 보통
+  \verb/fragile=singleslide/ 옵션을 주어야 가장 잘 돌아갑니다.
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{\texttt{fragile} 옵션을 주면 overlay가 안돼요!}
+  간단한 구조를 가지면서 \verb/\pause/와 같이 간단한 overlay 구성일 경우
+  \texttt{fragile} 옵션을 주었을 때도 작동하는 경우가 있습니다.
+  최대한 간단하게 구성을 바꾼 후, 그래도 안된다면\ldots
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{\hologo{XeLaTeX}으로 조판시 상단 바의 동그라미가 안 눌려요!}
+  \url{https://tex.stackexchange.com/a/369327}
+  \begin{latexcode}
+    \setbeamertemplate{mini frame in current section}{%
+      \visible<0>{\resizebox{0.1cm}{0.1cm}{o}}\kern-0.1cm%
+      \begin{pgfpicture}{0pt}{0pt}{0.1cm}{0.1cm}
+        \pgfpathcircle{\pgfpoint{0.05cm}{0.05cm}}{0.05cm}
+        \pgfusepath{stroke}
+      \end{pgfpicture}%
+    }
+    \setbeamertemplate{mini frame in current subsection}{%
+      \visible<0>{\resizebox{0.1cm}{0.1cm}{o}}\kern-0.1cm%
+      \begin{pgfpicture}{0pt}{0pt}{0.1cm}{0.1cm}
+        \pgfpathcircle{\pgfpoint{0.05cm}{0.05cm}}{0.05cm}
+        \pgfusepath{stroke}
+      \end{pgfpicture}%
+    }
+  \end{latexcode}
 \end{frame}
 \end{document}
