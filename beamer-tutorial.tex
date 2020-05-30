@@ -83,7 +83,7 @@
   numbersep=5pt,
   frame=single,
   fontsize=\footnotesize}
-\newmintinline[ltxverb]{latex}{}
+\newmintinline[ltxverb]{latex}{fontsize=\footnotesize}
 \NewDocumentCommand\inputltx{m}{%
   \inputminted[
     escapeinside=||,
@@ -653,8 +653,23 @@
   \end{block}
 \end{frame}
 
-\subsection{\texttt{overlay}}
-\begin{frame}[fragile=singleslide]{\texttt{pause}}
+\subsection{Overlay}
+\begin{frame}[fragile]{\texttt{pause}}
+  \beamer에서 발표의 전개에 따라 내용을 보여주거나 숨기는 방식은 overlay로
+  이루어진다.
+  가장 간단한 방식은 \verb/\pause/를 사용하는 것인데, 내용을 끊어줄 곳에
+  \verb/\pause/를 넣으면 해당 위치을 기점으로 슬라이드가 나뉘게 된다.
+  \vpad
+  \begin{block}{비활성화된 overlay를 숨기거나 연하게 보이기}
+    \footnotesize
+    \begin{tabular}{rl}
+      \ltxverb/\setbeamercovered{invisible}/ & 비활성화된 내용을 숨김\\
+      \ltxverb/\setbeamercovered{transparent}/ & 비활성화된 내용을 연하게 보임
+    \end{tabular}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{\texttt{pause} 데모}
   \begin{block}{\texttt{hello-beamer-9.tex}}
     \begin{columns}
       \begin{column}{0.45\textwidth}
@@ -679,26 +694,26 @@
         \end{minted}
       \end{column}
       \begin{column}{0.45\textwidth}
-      \begin{minted}[
-        escapeinside=||,
-        autogobble,
-        linenos,
-        firstnumber=last,
-        breaklines,
-        numbersep=5pt,
-        frame=single,
-        fontsize=\scriptsize
-      ]{latex}
+        \begin{minted}[
+          escapeinside=||,
+          autogobble,
+          linenos,
+          firstnumber=last,
+          breaklines,
+          numbersep=5pt,
+          frame=single,
+          fontsize=\scriptsize
+        ]{latex}
+              \pause
+              \item item2
+            \end{enumerate}
             \pause
-            \item item2
-          \end{enumerate}
-          \pause
-          \begin{description}
-            \item[key] value
-            \item[long key] value
-          \end{description}
-        \end{frame}
-      \end{minted}
+            \begin{description}
+              \item[key] value
+              \item[long key] value
+            \end{description}
+          \end{frame}
+        \end{minted}
       \end{column}
     \end{columns}
     \begin{center}
@@ -721,4 +736,77 @@
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Overlay Specification}
+  Overlay specification은 각진 괄호(\verb/<>/) 안에 숫자 범위를 넣어 해당
+  내용을 해당 frame의 몇 번째 slide에 보여줄지 표기한다.
+  프린터기에 문서를 인쇄할 때 범위를 지정하는 것과 비슷하게 작성한다.
+  \vpad
+  \begin{exampleblock}{예시}
+    \footnotesize
+    \begin{tabular}{rl}
+      \verb/<2>/ & 두 번째 슬라이드에만 활성화\\
+      \verb/<2->/ & 두 번째 슬라이드부터 활성화\\
+      \verb/<-3>/ & 세 번째 슬라이드까지 활성화\\
+      \verb/<1,3-5>/ & 첫 번째 슬라이드와 세 번째부터 다섯 번째 슬라이드까지
+      활성화
+    \end{tabular}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile=singleslide]{Overlay Specification 데모}
+  \begin{block}{\texttt{hello-beamer-9.tex}}
+    \begin{columns}
+      \begin{column}{0.45\textwidth}
+        \begin{minted}[
+          escapeinside=||,
+          autogobble,
+          linenos,
+          breaklines,
+          numbersep=5pt,
+          frame=single,
+          fontsize=\scriptsize
+        ]{latex}
+          \begin{frame}[t]
+            \frametitle{First Slide}
+            \setbeamercovered{ transparent}
+            \begin{itemize}
+              \item<3> \textbf<1,2>{TikZ}
+              \item<1-> Beamer
+                \begin{itemize}
+        \end{minted}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+      \begin{minted}[
+        escapeinside=||,
+        autogobble,
+        linenos,
+        firstnumber=last,
+        breaklines,
+        numbersep=5pt,
+        frame=single,
+        fontsize=\scriptsize
+      ]{latex}
+                \item<2> Fun
+                \item<1,3> \alert<2->{Cool}
+                \item<-2> Sexy
+              \end{itemize}
+          \end{itemize}
+          \setbeamercovered{ invisible}
+        \end{frame}
+      \end{minted}
+      \end{column}
+    \end{columns}
+    \begin{center}
+      \adjincludegraphics[
+        frame, page=2, width=0.3\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+      \adjincludegraphics[
+        frame, page=3, width=0.3\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+      \adjincludegraphics[
+        frame, page=4, width=0.3\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+    \end{center}
+  \end{block}
+\end{frame}
 \end{document}
