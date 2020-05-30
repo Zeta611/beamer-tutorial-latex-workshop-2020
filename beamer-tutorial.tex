@@ -5,11 +5,10 @@
 
 \usepackage{kotex}
 \usepackage{minted}
+\usepackage[export]{adjustbox}
 
 \usepackage{tikz}
 \usetikzlibrary{patterns,decorations.pathmorphing}
-
-\usepackage[export]{adjustbox}
 
 \vfuzz=30pt
 \hfuzz=5pt
@@ -141,7 +140,7 @@
   \pause\vpad
 
   \setbeamercovered{invisible}
-  \only<2>{\includegraphics[width=0.85\textwidth]{figures/ppt-themes.png}}
+  \only<2>{\includegraphics[width=0.85\textwidth]{figures/ppt-themes}}
   \begin{onlyenv}<3>
     \begin{tikzpicture}
       \begin{scope}[blend group = soft light]
@@ -188,11 +187,12 @@
 \section{도입}
 \subsection{\textsc{beamer}에 대하여}
 \begin{frame}[fragile]{\textsc{beamer}의 장점}
+  \setbeamercovered{transparent}
   \begin{itemize}
-    \item \alert{\LaTeX을 사용할 수 있음}\pause
+    \item \alert{\LaTeX을 사용할 수 있음}
       \begin{itemize}
-        \item 수식: $\nabla \cdot \vec E = \frac{\rho}{\varepsilon_0}$\pause
-        \item 코드: \ltxverb/Hello, \LaTeX!/\pause
+        \item 수식: $\nabla \cdot \vec E = \frac{\rho}{\varepsilon_0}$
+        \item 코드: \ltxverb/Hello, \LaTeX!/
         \item 도식 (TikZ):\\
           %%%%%%%%%%%%%%%%%%%% sample TikZ code
           \begin{tikzpicture}
@@ -222,7 +222,7 @@
       \end{itemize}
       \pause
 
-    \item 자동화 (목차 생성, 반복문, \ldots)\pause
+    \item 자동화 (목차 생성, 반복문, \ldots)
       \begin{itemize}
         \item expl3을 활용한 코딩
           \footnotesize
@@ -235,6 +235,7 @@
 
     \item \alert{구조화된 문서}
   \end{itemize}
+  \setbeamercovered{invisible}
 \end{frame}
 
 \begin{frame}{\textsc{beamer}의 또다른 장점}
@@ -612,9 +613,14 @@
       whale & seahorse & dolphin
     \end{tabular}
   \end{exampleblock}
+\end{frame}
 
-  이러한 테마 조합은 \url{https://hartwork.org/beamer-theme-matrix/}에서 확인할
-  수 있다.
+\begin{frame}{테마 조합}
+  테마들의 조합은 \url{https://hartwork.org/beamer-theme-matrix/}에서 볼 수
+  있다.
+  \begin{center}
+    \includegraphics[width=0.88\textwidth]{figures/beamer-matrix}
+  \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{테마 적용}
@@ -646,4 +652,73 @@
     \end{columns}
   \end{block}
 \end{frame}
+
+\subsection{\texttt{overlay}}
+\begin{frame}[fragile=singleslide]{\texttt{pause}}
+  \begin{block}{\texttt{hello-beamer-9.tex}}
+    \begin{columns}
+      \begin{column}{0.45\textwidth}
+        \begin{minted}[
+          escapeinside=||,
+          autogobble,
+          linenos,
+          breaklines,
+          numbersep=5pt,
+          frame=single,
+          fontsize=\scriptsize
+        ]{latex}
+          \begin{frame}{Second Slide}
+            \pause
+            \begin{enumerate}
+              \item item1
+              \item item2
+            \end{enumerate}
+            \pause
+            \begin{enumerate}[(a)]
+              \item item1
+        \end{minted}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+      \begin{minted}[
+        escapeinside=||,
+        autogobble,
+        linenos,
+        firstnumber=last,
+        breaklines,
+        numbersep=5pt,
+        frame=single,
+        fontsize=\scriptsize
+      ]{latex}
+            \pause
+            \item item2
+          \end{enumerate}
+          \pause
+          \begin{description}
+            \item[key] value
+            \item[long key] value
+          \end{description}
+        \end{frame}
+      \end{minted}
+      \end{column}
+    \end{columns}
+    \begin{center}
+      \adjincludegraphics[
+        frame, page=5, width=0.19\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+      \adjincludegraphics[
+        frame, page=6, width=0.19\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+      \adjincludegraphics[
+        frame, page=7, width=0.19\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+      \adjincludegraphics[
+        frame, page=8, width=0.19\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+      \adjincludegraphics[
+        frame, page=9, width=0.19\textwidth, trim=0 0 {.6\width} 0, clip
+      ]{tutorial/hello-beamer-9.pdf}
+    \end{center}
+  \end{block}
+\end{frame}
+
 \end{document}
